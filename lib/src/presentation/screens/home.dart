@@ -4,7 +4,7 @@ import 'package:rm_task_app/src/presentation/widgets/task/filter_task.dart';
 import 'package:rm_task_app/src/presentation/widgets/task/list_task.dart';
 
 class HomeScreen extends StatelessWidget {
-  static String name = 'home';
+  static String name = '/';
   const HomeScreen({super.key});
 
   @override
