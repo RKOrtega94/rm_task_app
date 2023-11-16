@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "158649573180",
+    "project_id": "rm-task-app",
+    "storage_bucket": "rm-task-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:158649573180:android:0a0ca499ae3ff9dd1d8839",
+        "android_client_info": {
+          "package_name": "com.example.rm_task_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAJ5tAzbASM8AA7MmxBkKmN7YC8mcgSi-M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
