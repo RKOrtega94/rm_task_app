@@ -1,6 +1,8 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:rm_task_app/generated/l10n.dart';
 import 'package:rm_task_app/src/core/firebase_options.dart';
 import 'package:rm_task_app/src/presentation/router/_router.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -23,6 +25,14 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'Flutter Demo',
+      localizationsDelegates: const [
+        S.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: S.delegate.supportedLocales,
+      locale: const Locale('en'),
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         // This is the theme of your application.

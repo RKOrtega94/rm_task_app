@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rm_task_app/src/data/model/task_model.dart';
-import 'package:rm_task_app/src/presentation/widgets/shared/text_field_widget.dart';
+import 'package:rm_task_app/src/presentation/widgets/_widgets.dart';
 
 class TaskForm extends StatefulWidget {
   final TaskModel? task;
@@ -43,20 +43,24 @@ class _TaskFormState extends State<TaskForm> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      child: const Padding(
-        padding: EdgeInsets.all(8.0),
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
           child: Column(
             children: [
-              AppTextField(
+              const AppTextField(
                 label: "Task title",
               ),
-              SizedBox(height: 8),
-              AppTextField(
+              const SizedBox(height: 20),
+              const AppTextField(
                 label: "Task description",
                 keyboardType: TextInputType.multiline,
                 minLines: 3,
               ),
+              const SizedBox(height: 20),
+              const AppDatePicker(),
+              const SizedBox(height: 20),
+              AppButton(widget.task != null ? "Update" : "Create"),
             ],
           ),
         ),
