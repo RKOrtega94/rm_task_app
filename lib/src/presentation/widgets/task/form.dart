@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:rm_task_app/src/data/model/task_model.dart';
-import 'package:rm_task_app/src/presentation/providers/_provider.dart';
-import 'package:rm_task_app/src/presentation/providers/task/store_task_provider.dart';
 import 'package:rm_task_app/src/presentation/widgets/_widgets.dart';
 
 class TaskForm extends ConsumerStatefulWidget {
@@ -15,6 +14,9 @@ class TaskForm extends ConsumerStatefulWidget {
 
 class _TaskFormState extends ConsumerState<TaskForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  bool _isLoading = false;
+
   TaskModel _task = TaskModel(
     title: '',
     description: '',
@@ -82,13 +84,11 @@ class _TaskFormState extends ConsumerState<TaskForm> {
               const SizedBox(height: 20),
               AppButton(
                 widget.task != null ? "Update" : "Create",
-                isLoading: false,
+                isLoading: _isLoading,
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {
-                    debugPrint(_task.toString());
-                    ref.watch(storeTaskProvider(_task)).whenData((value) {
-                      ref.read(fetchTasksProvider);
-                    });
+                    _isLoading = true;
+                    setState(() {});
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text('Processing Data'),

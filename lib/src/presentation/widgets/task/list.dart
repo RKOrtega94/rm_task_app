@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:rm_task_app/src/data/model/task_model.dart';
-import 'package:rm_task_app/src/presentation/providers/_provider.dart';
+import 'package:rm_task_app/src/presentation/providers/task_provider.dart';
 import 'package:rm_task_app/src/presentation/widgets/_widgets.dart';
 
 class TaskListWidget extends ConsumerWidget {
@@ -9,7 +9,8 @@ class TaskListWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final AsyncValue<List<TaskModel>> tasks = ref.watch(fetchTasksProvider);
+    final AsyncValue<List<TaskModel>> tasks = ref.watch(taskProvider);
+    ref.read(taskProvider.notifier).fetchTasks();
 
     debugPrint('tasks: $tasks');
 
