@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
+import 'package:rm_task_app/src/data/model/task_model.dart';
 
 class TaskTileWidget extends StatelessWidget {
-  const TaskTileWidget({super.key});
+  final TaskModel task;
+  const TaskTileWidget({super.key, required this.task});
 
   @override
   Widget build(BuildContext context) {
     return ListTile(
-      onTap: () {},
+      onTap: () => context.push('/task/${task.id}'),
       leading: Checkbox(
         value: false,
         onChanged: (value) {},
@@ -15,23 +19,18 @@ class TaskTileWidget extends StatelessWidget {
         icon: const Icon(Icons.delete),
         onPressed: () {},
       ),
-      title: const Text('Task Title'),
+      title: Text(task.title),
       subtitle: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text('Task Description'),
-          Row(
-            children: [
-              Text(
-                'Created  2021-10-10',
-                style: Theme.of(context).textTheme.labelSmall,
-              ),
-              const SizedBox(width: 10),
-              Text(
-                'Until  2021-10-10',
-                style: Theme.of(context).textTheme.labelSmall,
-              ),
-            ],
+          Text(task.description),
+          Text(
+            "From: ${DateFormat.yMMMEd('es').format(task.createdAt ?? DateTime.now())}",
+            style: Theme.of(context).textTheme.labelSmall,
+          ),
+          Text(
+            "Until:  ${DateFormat.yMMMEd('es').format(task.untilDate)}",
+            style: Theme.of(context).textTheme.labelSmall,
           ),
         ],
       ),

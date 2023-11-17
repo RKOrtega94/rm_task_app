@@ -14,13 +14,13 @@ class DatabaseQuery {
   }
 
   /// Get a single document
-  Future<Map> getCollectionWhere(
+  Future<List<Map>> getCollectionWhere(
       String collection, String field, String value) async {
     QuerySnapshot querySnapshot = await firestore
         .collection(collection)
         .where(field, isEqualTo: value)
         .get();
-    return querySnapshot.docs.asMap();
+    return querySnapshot.docs.map((e) => e.data() as Map).toList();
   }
 
   // Store data

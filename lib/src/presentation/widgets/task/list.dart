@@ -27,7 +27,9 @@ class TaskListWidget extends ConsumerWidget {
 
     return ListView.builder(
       itemCount: tasks.hasValue ? tasks.value?.length : 0,
-      itemBuilder: (context, index) => const TaskTileWidget(),
+      itemBuilder: (context, index) => TaskTileWidget(
+        task: tasks.value![index],
+      ),
     );
   }
 }

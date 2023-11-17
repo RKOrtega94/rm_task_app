@@ -11,9 +11,11 @@ final router = GoRouter(
       builder: (context, state) => const HomeScreen(),
     ),
     GoRoute(
-      path: '/task-detail',
-      builder: (context, state) => const TaskDetailScreen(),
-    ),
+        path: '/task/:id',
+        builder: (context, state) {
+          final id = state.pathParameters['id']!;
+          return TaskDetailScreen(id: id);
+        }),
     GoRoute(
       path: '/task-form',
       builder: (context, state) => const TaskFormScreen(),

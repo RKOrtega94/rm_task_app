@@ -48,6 +48,7 @@ dependencies:
   flutter_localizations:
     sdk: flutter
   uuid: ^4.2.1
+  shimmer: ^3.0.0
 
 dev_dependencies:
   flutter_test:

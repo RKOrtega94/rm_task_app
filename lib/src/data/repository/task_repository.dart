@@ -25,10 +25,7 @@ class TaskRepository implements ITaskRepository {
   }
 
   @override
-  Future<TaskModel> getTask(String id) {
-    // TODO: implement getTask
-    throw UnimplementedError();
-  }
+  Future<TaskModel> getTask(String id) => _ds.getTask(id);
 
   @override
   Future<List<TaskModel>> getTasks() => _ds.getTasks();

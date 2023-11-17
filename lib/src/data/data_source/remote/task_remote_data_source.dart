@@ -24,8 +24,13 @@ class TaskRemoteDataSource implements ITaskDataSource {
 
   @override
   Future<TaskModel> getTask(String id) {
-    // TODO: implement getTask
-    throw UnimplementedError();
+    try {
+      return _db.getCollectionWhere('tasks', 'id', id).then((value) {
+        return TaskModel.fromJson(value.first as Map<String, dynamic>);
+      });
+    } catch (e) {
+      rethrow;
+    }
   }
 
   @override
