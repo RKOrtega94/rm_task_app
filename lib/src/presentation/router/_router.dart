@@ -14,5 +14,9 @@ final router = GoRouter(
       path: '/task-detail',
       builder: (context, state) => const TaskDetailScreen(),
     ),
+    GoRoute(
+      path: '/task-form',
+      builder: (context, state) => const TaskFormScreen(),
+    ),
   ],
 );

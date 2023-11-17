@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rm_task_app/src/presentation/layouts/main_layout.dart';
-import 'package:rm_task_app/src/presentation/widgets/task/filter_task.dart';
-import 'package:rm_task_app/src/presentation/widgets/task/list_task.dart';
+import 'package:rm_task_app/src/presentation/widgets/_widgets.dart';
 
 class HomeScreen extends StatelessWidget {
   static String name = '/';
@@ -10,6 +9,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const AppMainLayout(
+      isHome: true,
       child: Column(
         children: [
           FilterTaskWidget(),
