@@ -8,10 +8,7 @@ class TaskRepository implements ITaskRepository {
   TaskRepository(this._ds);
 
   @override
-  Future<TaskModel> createTask(TaskModel task) {
-    // TODO: implement createTask
-    throw UnimplementedError();
-  }
+  Future<TaskModel> createTask(TaskModel task) => _ds.createTask(task);
 
   @override
   Future<void> deleteTask(String id) {
@@ -26,9 +23,7 @@ class TaskRepository implements ITaskRepository {
   }
 
   @override
-  Future<List<TaskModel>> getTasks() async {
-    return await _ds.getTasks();
-  }
+  Future<List<TaskModel>> getTasks() => _ds.getTasks();
 
   @override
   Future<TaskModel> updateTask(TaskModel task) {

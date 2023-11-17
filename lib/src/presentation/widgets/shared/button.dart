@@ -3,10 +3,12 @@ import 'package:flutter/material.dart';
 class AppButton extends StatelessWidget {
   final String label;
   final Function()? onPressed;
+  final bool isLoading;
   const AppButton(
     this.label, {
     super.key,
     this.onPressed,
+    this.isLoading = false,
   });
 
   @override
@@ -14,8 +16,8 @@ class AppButton extends StatelessWidget {
     return SizedBox(
       width: double.infinity,
       child: ElevatedButton(
-        onPressed: () {},
-        child: Text(label),
+        onPressed: isLoading ? null : onPressed,
+        child: isLoading ? const CircularProgressIndicator() : Text(label),
       ),
     );
   }

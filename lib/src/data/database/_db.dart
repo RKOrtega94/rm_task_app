@@ -8,9 +8,9 @@ class DatabaseQuery {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
   /// Get collection
-  Future<Map> getCollection(String collection) async {
+  Future<List<Map>> getCollection(String collection) async {
     QuerySnapshot querySnapshot = await firestore.collection(collection).get();
-    return querySnapshot.docs.asMap();
+    return querySnapshot.docs.map((e) => e.data() as Map).toList();
   }
 
   /// Get a single document

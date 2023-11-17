@@ -7,8 +7,13 @@ class TaskRemoteDataSource implements ITaskDataSource {
 
   @override
   Future<TaskModel> createTask(TaskModel task) {
-    // TODO: implement createTask
-    throw UnimplementedError();
+    try {
+      return _db.storeData('tasks', task.toJson()).then((value) {
+        return TaskModel.fromJson(value as Map<String, dynamic>);
+      });
+    } catch (e) {
+      rethrow;
+    }
   }
 
   @override
@@ -27,7 +32,9 @@ class TaskRemoteDataSource implements ITaskDataSource {
   Future<List<TaskModel>> getTasks() {
     try {
       return _db.getCollection('tasks').then((value) {
-        return value.values.map((e) => TaskModel.fromJson(e)).toList();
+        return value
+            .map((e) => TaskModel.fromJson(e as Map<String, dynamic>))
+            .toList();
       });
     } catch (e) {
       rethrow;
