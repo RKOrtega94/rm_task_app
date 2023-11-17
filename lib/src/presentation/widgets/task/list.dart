@@ -10,7 +10,6 @@ class TaskListWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final AsyncValue<List<TaskModel>> tasks = ref.watch(taskProvider);
-    ref.read(taskProvider.notifier).fetchTasks();
 
     debugPrint('tasks: $tasks');
 

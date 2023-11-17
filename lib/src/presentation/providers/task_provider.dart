@@ -10,12 +10,25 @@ part 'task_provider.g.dart';
 class Task extends _$Task {
   @override
   Future<List<TaskModel>> build() async {
-    return Future.value([]);
+    final GetAllTasksUseCase getAllTasksUseCase = GetAllTasksUseCase(
+      TaskRepository(
+        TaskRemoteDataSource(),
+      ),
+    );
+
+    final List<TaskModel> tasks = await getAllTasksUseCase.call();
+    return Future.value([...tasks]);
   }
 
-  Future fetchTasks() async {
-    final GetAllTasksUseCase useCase =
-        GetAllTasksUseCase(TaskRepository(TaskRemoteDataSource()));
-    state = AsyncValue.data(await useCase.call());
+  Future<void> add(TaskModel task) async {
+    final GetAllTasksUseCase getAllTasksUseCase = GetAllTasksUseCase(
+      TaskRepository(
+        TaskRemoteDataSource(),
+      ),
+    );
+
+    final List<TaskModel> tasks = await getAllTasksUseCase.call();
+    tasks.add(task);
+    state = AsyncValue.data([...state.value!, task]);
   }
 }
