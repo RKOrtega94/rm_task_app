@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:rm_task_app/src/data/model/task_model.dart';
+import 'package:rm_task_app/src/presentation/providers/task_provider.dart';
 import 'package:rm_task_app/src/presentation/widgets/_widgets.dart';
 
 class TaskForm extends ConsumerStatefulWidget {
@@ -23,6 +25,15 @@ class _TaskFormState extends ConsumerState<TaskForm> {
     untilDate: DateTime.now(),
   );
 
+  handleStore() {
+    if (widget.task != null) {
+      print("update");
+    } else {
+      ref.read(taskProvider.notifier).add(_task).then(
+          (value) => {_isLoading = false, setState(() {}), context.pop()});
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -40,7 +51,6 @@ class _TaskFormState extends ConsumerState<TaskForm> {
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: SingleChildScrollView(
@@ -88,6 +98,7 @@ class _TaskFormState extends ConsumerState<TaskForm> {
                   if (_formKey.currentState!.validate()) {
                     _isLoading = true;
                     setState(() {});
+                    handleStore();
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text('Processing Data'),
