@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:rm_task_app/src/presentation/providers/task_provider.dart';
+import 'package:rm_task_app/src/presentation/widgets/shared/button.dart';
+import 'package:rm_task_app/src/presentation/widgets/shared/show_dialog.dart';
 import 'package:rm_task_app/src/presentation/widgets/skeleton/detail_skeleton.dart';
 
 class TaskDetail extends ConsumerWidget {
@@ -28,7 +32,71 @@ class TaskDetail extends ConsumerWidget {
                 ),
                 Text(snapshot.data!.description),
                 Text(snapshot.data!.status),
-                Text(snapshot.data!.untilDate.toString()),
+                RichText(
+                  text: TextSpan(
+                    text: 'Created at: ',
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                    children: [
+                      TextSpan(
+                        text: DateFormat.yMMMMEEEEd()
+                            .format(snapshot.data!.createdAt!),
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                    ],
+                  ),
+                ),
+                RichText(
+                  text: TextSpan(
+                    text: 'Until date: ',
+                    style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
+                        ),
+                    children: [
+                      TextSpan(
+                        text: DateFormat.yMMMMEEEEd()
+                            .format(snapshot.data!.untilDate),
+                        style: Theme.of(context).textTheme.bodyLarge,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+                AppButton(
+                  'Edit',
+                  onPressed: () {},
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.blue,
+                  ),
+                ),
+                const SizedBox(height: 10),
+                AppButton(
+                  'Delete',
+                  onPressed: () => appShowDialog(
+                    context,
+                    title: 'Alert',
+                    content: 'Are you sure you want to delete this task?',
+                    confirm: () => ref
+                        .read(taskProvider.notifier)
+                        .delete(snapshot.data!.id!)
+                        .then(
+                          (value) => {
+                            context.pop(),
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text('Task deleted'),
+                              ),
+                            )
+                          },
+                        ),
+                  ),
+                  style: ElevatedButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.red,
+                  ),
+                ),
               ],
             );
           } else {

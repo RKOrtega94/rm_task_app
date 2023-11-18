@@ -18,8 +18,11 @@ class TaskRemoteDataSource implements ITaskDataSource {
 
   @override
   Future<void> deleteTask(String id) {
-    // TODO: implement deleteTask
-    throw UnimplementedError();
+    try {
+      return _db.deleteData('tasks', id);
+    } catch (e) {
+      rethrow;
+    }
   }
 
   @override

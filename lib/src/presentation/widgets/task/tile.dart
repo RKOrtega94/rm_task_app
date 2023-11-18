@@ -25,11 +25,11 @@ class TaskTileWidget extends StatelessWidget {
         children: [
           Text(task.description),
           Text(
-            "From: ${DateFormat.yMMMEd('es').format(task.createdAt ?? DateTime.now())}",
+            "From: ${DateFormat.yMMMEd().format(task.createdAt ?? DateTime.now())}",
             style: Theme.of(context).textTheme.labelSmall,
           ),
           Text(
-            "Until:  ${DateFormat.yMMMEd('es').format(task.untilDate)}",
+            "Until:  ${DateFormat.yMMMEd().format(task.untilDate)}",
             style: Theme.of(context).textTheme.labelSmall,
           ),
         ],

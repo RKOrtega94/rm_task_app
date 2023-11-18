@@ -24,7 +24,7 @@ class _AppDatePickerState extends State<AppDatePicker> {
       readOnly: true,
       controller: TextEditingController(
         text: _date != null
-            ? DateFormat.yMMMMEEEEd('es').format(_date ?? DateTime.now())
+            ? DateFormat.yMMMMEEEEd().format(_date ?? DateTime.now())
             : '',
       ),
       validator: widget.validator,

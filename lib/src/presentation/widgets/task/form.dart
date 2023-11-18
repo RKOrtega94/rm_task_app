@@ -29,8 +29,16 @@ class _TaskFormState extends ConsumerState<TaskForm> {
     if (widget.task != null) {
       print("update");
     } else {
-      ref.read(taskProvider.notifier).add(_task).then(
-          (value) => {_isLoading = false, setState(() {}), context.pop()});
+      ref.read(taskProvider.notifier).add(_task).then((value) => {
+            _isLoading = false,
+            setState(() {}),
+            context.pop(),
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Task created successfully'),
+              ),
+            ),
+          });
     }
   }
 
@@ -99,11 +107,6 @@ class _TaskFormState extends ConsumerState<TaskForm> {
                     _isLoading = true;
                     setState(() {});
                     handleStore();
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text('Processing Data'),
-                      ),
-                    );
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(

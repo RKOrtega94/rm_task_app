@@ -2,6 +2,7 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 import 'package:rm_task_app/src/data/data_source/remote/task_remote_data_source.dart';
 import 'package:rm_task_app/src/data/model/task_model.dart';
 import 'package:rm_task_app/src/data/repository/task_repository.dart';
+import 'package:rm_task_app/src/data/use_case/task/delete.dart';
 import 'package:rm_task_app/src/data/use_case/task/get_all.dart';
 import 'package:rm_task_app/src/data/use_case/task/get_by_id.dart';
 import 'package:rm_task_app/src/data/use_case/task/store.dart';
@@ -44,5 +45,19 @@ class Task extends _$Task {
     final task0 = await storeTaskUseCase.call(task);
 
     state = AsyncValue.data([...state.value!, task0]);
+  }
+
+  Future<void> delete(String id) async {
+    final DeleteTaskUseCase deleteTaskUseCase = DeleteTaskUseCase(
+      TaskRepository(
+        TaskRemoteDataSource(),
+      ),
+    );
+
+    await deleteTaskUseCase.call(id);
+
+    final tasks = state.value!.where((element) => element.id != id).toList();
+
+    state = AsyncValue.data([...tasks]);
   }
 }
