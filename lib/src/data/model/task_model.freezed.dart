@@ -25,7 +25,7 @@ mixin _$TaskModel {
   String get description => throw _privateConstructorUsedError;
   bool? get completed => throw _privateConstructorUsedError;
   DateTime? get createdAt => throw _privateConstructorUsedError;
-  DateTime get untilDate => throw _privateConstructorUsedError;
+  DateTime? get untilDate => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -44,7 +44,7 @@ abstract class $TaskModelCopyWith<$Res> {
       String description,
       bool? completed,
       DateTime? createdAt,
-      DateTime untilDate});
+      DateTime? untilDate});
 }
 
 /// @nodoc
@@ -65,7 +65,7 @@ class _$TaskModelCopyWithImpl<$Res, $Val extends TaskModel>
     Object? description = null,
     Object? completed = freezed,
     Object? createdAt = freezed,
-    Object? untilDate = null,
+    Object? untilDate = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -88,10 +88,10 @@ class _$TaskModelCopyWithImpl<$Res, $Val extends TaskModel>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      untilDate: null == untilDate
+      untilDate: freezed == untilDate
           ? _value.untilDate
           : untilDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
     ) as $Val);
   }
 }
@@ -110,7 +110,7 @@ abstract class _$$TaskModelImplCopyWith<$Res>
       String description,
       bool? completed,
       DateTime? createdAt,
-      DateTime untilDate});
+      DateTime? untilDate});
 }
 
 /// @nodoc
@@ -129,7 +129,7 @@ class __$$TaskModelImplCopyWithImpl<$Res>
     Object? description = null,
     Object? completed = freezed,
     Object? createdAt = freezed,
-    Object? untilDate = null,
+    Object? untilDate = freezed,
   }) {
     return _then(_$TaskModelImpl(
       id: freezed == id
@@ -152,10 +152,10 @@ class __$$TaskModelImplCopyWithImpl<$Res>
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
               as DateTime?,
-      untilDate: null == untilDate
+      untilDate: freezed == untilDate
           ? _value.untilDate
           : untilDate // ignore: cast_nullable_to_non_nullable
-              as DateTime,
+              as DateTime?,
     ));
   }
 }
@@ -169,7 +169,7 @@ class _$TaskModelImpl with DiagnosticableTreeMixin implements _TaskModel {
       required this.description,
       required this.completed,
       this.createdAt,
-      required this.untilDate});
+      this.untilDate});
 
   factory _$TaskModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$TaskModelImplFromJson(json);
@@ -185,7 +185,7 @@ class _$TaskModelImpl with DiagnosticableTreeMixin implements _TaskModel {
   @override
   final DateTime? createdAt;
   @override
-  final DateTime untilDate;
+  final DateTime? untilDate;
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
@@ -248,7 +248,7 @@ abstract class _TaskModel implements TaskModel {
       required final String description,
       required final bool? completed,
       final DateTime? createdAt,
-      required final DateTime untilDate}) = _$TaskModelImpl;
+      final DateTime? untilDate}) = _$TaskModelImpl;
 
   factory _TaskModel.fromJson(Map<String, dynamic> json) =
       _$TaskModelImpl.fromJson;
@@ -264,7 +264,7 @@ abstract class _TaskModel implements TaskModel {
   @override
   DateTime? get createdAt;
   @override
-  DateTime get untilDate;
+  DateTime? get untilDate;
   @override
   @JsonKey(ignore: true)
   _$$TaskModelImplCopyWith<_$TaskModelImpl> get copyWith =>

@@ -29,7 +29,7 @@ class TaskTileWidget extends StatelessWidget {
             style: Theme.of(context).textTheme.labelSmall,
           ),
           Text(
-            "Until:  ${DateFormat.yMMMEd().format(task.untilDate)}",
+            "Until:   ${task.untilDate == null ? 'Not defined' : DateFormat.yMMMEd().format(task.untilDate!)}",
             style: Theme.of(context).textTheme.labelSmall,
           ),
         ],

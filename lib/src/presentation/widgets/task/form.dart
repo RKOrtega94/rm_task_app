@@ -6,8 +6,8 @@ import 'package:rm_task_app/src/presentation/providers/task_provider.dart';
 import 'package:rm_task_app/src/presentation/widgets/_widgets.dart';
 
 class TaskForm extends ConsumerStatefulWidget {
-  final TaskModel? task;
-  const TaskForm({super.key, this.task});
+  final String? id;
+  const TaskForm({super.key, this.id});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _TaskFormState();
@@ -18,15 +18,15 @@ class _TaskFormState extends ConsumerState<TaskForm> {
 
   bool _isLoading = false;
 
-  TaskModel _task = TaskModel(
+  TaskModel _task = const TaskModel(
     title: '',
     description: '',
     completed: false,
-    untilDate: DateTime.now(),
+    untilDate: null,
   );
 
   handleStore() {
-    if (widget.task != null) {
+    if (_task.id != null) {
       print("update");
     } else {
       ref.read(taskProvider.notifier).add(_task).then((value) => {
@@ -45,8 +45,22 @@ class _TaskFormState extends ConsumerState<TaskForm> {
   @override
   void initState() {
     super.initState();
-    if (widget.task != null) {
-      _task = widget.task!;
+    debugPrint("initState");
+    if (widget.id != null) {
+      ref.read(taskProvider.notifier).get(widget.id!).then((value) {
+        if (value != null) {
+          _task = value;
+          debugPrint("task: ${_task.toJson()}");
+          setState(() {});
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            const SnackBar(
+              content: Text('Task not found'),
+            ),
+          );
+          context.pop();
+        }
+      });
     }
   }
 
@@ -65,6 +79,7 @@ class _TaskFormState extends ConsumerState<TaskForm> {
           child: Column(
             children: [
               AppTextField(
+                initialValue: _task.title,
                 label: "Task title",
                 validator: (value) {
                   if (value == null || value.isEmpty) {
@@ -76,6 +91,7 @@ class _TaskFormState extends ConsumerState<TaskForm> {
               ),
               const SizedBox(height: 20),
               AppTextField(
+                initialValue: _task.description,
                 label: "Task description",
                 keyboardType: TextInputType.multiline,
                 minLines: 3,
@@ -90,17 +106,22 @@ class _TaskFormState extends ConsumerState<TaskForm> {
               ),
               const SizedBox(height: 20),
               AppDatePicker(
+                initialDate: _task.untilDate,
+                label: "Until date",
                 validator: (val) {
                   if (val == null) {
                     return 'Date is required';
                   }
                   return null;
                 },
-                onChanged: (value) => _task = _task.copyWith(untilDate: value!),
+                onChanged: (value) => {
+                  _task = _task.copyWith(untilDate: value!),
+                  setState(() {}),
+                },
               ),
               const SizedBox(height: 20),
               AppButton(
-                widget.task != null ? "Update" : "Create",
+                _task.id != null ? "Update" : "Create",
                 isLoading: _isLoading,
                 onPressed: () {
                   if (_formKey.currentState!.validate()) {

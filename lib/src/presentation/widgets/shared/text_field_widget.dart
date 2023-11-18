@@ -8,6 +8,7 @@ class AppTextField extends StatelessWidget {
   final Function(String)? onChanged;
   final String? Function(String?)? validator;
   final String? errorText;
+  final String? initialValue;
   const AppTextField({
     super.key,
     this.label,
@@ -17,11 +18,13 @@ class AppTextField extends StatelessWidget {
     this.onChanged,
     this.validator,
     this.errorText,
+    this.initialValue,
   });
 
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      controller: TextEditingController(text: initialValue),
       onChanged: onChanged,
       validator: validator,
       keyboardType: keyboardType,

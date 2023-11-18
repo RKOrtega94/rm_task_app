@@ -20,5 +20,12 @@ final router = GoRouter(
       path: '/task-form',
       builder: (context, state) => const TaskFormScreen(),
     ),
+    GoRoute(
+      path: '/task-form/:id',
+      builder: (context, state) {
+        final id = state.pathParameters['id']!;
+        return TaskFormScreen(id: id);
+      },
+    ),
   ],
 );

@@ -57,8 +57,10 @@ class TaskDetail extends ConsumerWidget {
                         ),
                     children: [
                       TextSpan(
-                        text: DateFormat.yMMMMEEEEd()
-                            .format(snapshot.data!.untilDate),
+                        text: snapshot.data!.untilDate == null
+                            ? 'Not defined'
+                            : DateFormat.yMMMMEEEEd()
+                                .format(snapshot.data!.untilDate!),
                         style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     ],
@@ -67,7 +69,8 @@ class TaskDetail extends ConsumerWidget {
                 const SizedBox(height: 20),
                 AppButton(
                   'Edit',
-                  onPressed: () {},
+                  onPressed: () =>
+                      context.push('/task-form/${snapshot.data!.id}'),
                   style: ElevatedButton.styleFrom(
                     foregroundColor: Colors.white,
                     backgroundColor: Colors.blue,

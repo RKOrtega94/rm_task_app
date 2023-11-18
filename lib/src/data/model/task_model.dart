@@ -12,7 +12,7 @@ class TaskModel with _$TaskModel {
     required String description,
     required bool? completed,
     DateTime? createdAt,
-    required DateTime untilDate,
+    DateTime? untilDate,
   }) = _TaskModel;
 
   factory TaskModel.fromJson(Map<String, dynamic> json) =>
