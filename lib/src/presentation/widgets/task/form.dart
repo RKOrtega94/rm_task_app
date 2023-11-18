@@ -21,7 +21,7 @@ class _TaskFormState extends ConsumerState<TaskForm> {
   TaskModel _task = TaskModel(
     title: '',
     description: '',
-    status: '',
+    completed: false,
     untilDate: DateTime.now(),
   );
 

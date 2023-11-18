@@ -14,7 +14,7 @@ class TaskRepository implements ITaskRepository {
         task.copyWith(
           id: _uuid.v4(),
           createdAt: DateTime.now(),
-          status: 'pending',
+          completed: false,
         ),
       );
 

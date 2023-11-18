@@ -10,7 +10,7 @@ class TaskModel with _$TaskModel {
     String? id,
     required String title,
     required String description,
-    required String status,
+    required bool? completed,
     DateTime? createdAt,
     required DateTime untilDate,
   }) = _TaskModel;

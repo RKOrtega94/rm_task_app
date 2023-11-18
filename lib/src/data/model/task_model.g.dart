@@ -11,7 +11,7 @@ _$TaskModelImpl _$$TaskModelImplFromJson(Map<String, dynamic> json) =>
       id: json['id'] as String?,
       title: json['title'] as String,
       description: json['description'] as String,
-      status: json['status'] as String,
+      completed: json['completed'] as bool?,
       createdAt: json['createdAt'] == null
           ? null
           : DateTime.parse(json['createdAt'] as String),
@@ -23,7 +23,7 @@ Map<String, dynamic> _$$TaskModelImplToJson(_$TaskModelImpl instance) =>
       'id': instance.id,
       'title': instance.title,
       'description': instance.description,
-      'status': instance.status,
+      'completed': instance.completed,
       'createdAt': instance.createdAt?.toIso8601String(),
       'untilDate': instance.untilDate.toIso8601String(),
     };

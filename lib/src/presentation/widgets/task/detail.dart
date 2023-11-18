@@ -31,7 +31,9 @@ class TaskDetail extends ConsumerWidget {
                       ),
                 ),
                 Text(snapshot.data!.description),
-                Text(snapshot.data!.status),
+                Text(snapshot.data!.completed ?? false
+                    ? 'Completed'
+                    : 'Pending'),
                 RichText(
                   text: TextSpan(
                     text: 'Created at: ',

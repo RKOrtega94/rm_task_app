@@ -23,7 +23,7 @@ mixin _$TaskModel {
   String? get id => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
-  String get status => throw _privateConstructorUsedError;
+  bool? get completed => throw _privateConstructorUsedError;
   DateTime? get createdAt => throw _privateConstructorUsedError;
   DateTime get untilDate => throw _privateConstructorUsedError;
 
@@ -42,7 +42,7 @@ abstract class $TaskModelCopyWith<$Res> {
       {String? id,
       String title,
       String description,
-      String status,
+      bool? completed,
       DateTime? createdAt,
       DateTime untilDate});
 }
@@ -63,7 +63,7 @@ class _$TaskModelCopyWithImpl<$Res, $Val extends TaskModel>
     Object? id = freezed,
     Object? title = null,
     Object? description = null,
-    Object? status = null,
+    Object? completed = freezed,
     Object? createdAt = freezed,
     Object? untilDate = null,
   }) {
@@ -80,10 +80,10 @@ class _$TaskModelCopyWithImpl<$Res, $Val extends TaskModel>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String,
+      completed: freezed == completed
+          ? _value.completed
+          : completed // ignore: cast_nullable_to_non_nullable
+              as bool?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -108,7 +108,7 @@ abstract class _$$TaskModelImplCopyWith<$Res>
       {String? id,
       String title,
       String description,
-      String status,
+      bool? completed,
       DateTime? createdAt,
       DateTime untilDate});
 }
@@ -127,7 +127,7 @@ class __$$TaskModelImplCopyWithImpl<$Res>
     Object? id = freezed,
     Object? title = null,
     Object? description = null,
-    Object? status = null,
+    Object? completed = freezed,
     Object? createdAt = freezed,
     Object? untilDate = null,
   }) {
@@ -144,10 +144,10 @@ class __$$TaskModelImplCopyWithImpl<$Res>
           ? _value.description
           : description // ignore: cast_nullable_to_non_nullable
               as String,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String,
+      completed: freezed == completed
+          ? _value.completed
+          : completed // ignore: cast_nullable_to_non_nullable
+              as bool?,
       createdAt: freezed == createdAt
           ? _value.createdAt
           : createdAt // ignore: cast_nullable_to_non_nullable
@@ -167,7 +167,7 @@ class _$TaskModelImpl with DiagnosticableTreeMixin implements _TaskModel {
       {this.id,
       required this.title,
       required this.description,
-      required this.status,
+      required this.completed,
       this.createdAt,
       required this.untilDate});
 
@@ -181,7 +181,7 @@ class _$TaskModelImpl with DiagnosticableTreeMixin implements _TaskModel {
   @override
   final String description;
   @override
-  final String status;
+  final bool? completed;
   @override
   final DateTime? createdAt;
   @override
@@ -189,7 +189,7 @@ class _$TaskModelImpl with DiagnosticableTreeMixin implements _TaskModel {
 
   @override
   String toString({DiagnosticLevel minLevel = DiagnosticLevel.info}) {
-    return 'TaskModel(id: $id, title: $title, description: $description, status: $status, createdAt: $createdAt, untilDate: $untilDate)';
+    return 'TaskModel(id: $id, title: $title, description: $description, completed: $completed, createdAt: $createdAt, untilDate: $untilDate)';
   }
 
   @override
@@ -200,7 +200,7 @@ class _$TaskModelImpl with DiagnosticableTreeMixin implements _TaskModel {
       ..add(DiagnosticsProperty('id', id))
       ..add(DiagnosticsProperty('title', title))
       ..add(DiagnosticsProperty('description', description))
-      ..add(DiagnosticsProperty('status', status))
+      ..add(DiagnosticsProperty('completed', completed))
       ..add(DiagnosticsProperty('createdAt', createdAt))
       ..add(DiagnosticsProperty('untilDate', untilDate));
   }
@@ -214,7 +214,8 @@ class _$TaskModelImpl with DiagnosticableTreeMixin implements _TaskModel {
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
                 other.description == description) &&
-            (identical(other.status, status) || other.status == status) &&
+            (identical(other.completed, completed) ||
+                other.completed == completed) &&
             (identical(other.createdAt, createdAt) ||
                 other.createdAt == createdAt) &&
             (identical(other.untilDate, untilDate) ||
@@ -224,7 +225,7 @@ class _$TaskModelImpl with DiagnosticableTreeMixin implements _TaskModel {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType, id, title, description, status, createdAt, untilDate);
+      runtimeType, id, title, description, completed, createdAt, untilDate);
 
   @JsonKey(ignore: true)
   @override
@@ -245,7 +246,7 @@ abstract class _TaskModel implements TaskModel {
       {final String? id,
       required final String title,
       required final String description,
-      required final String status,
+      required final bool? completed,
       final DateTime? createdAt,
       required final DateTime untilDate}) = _$TaskModelImpl;
 
@@ -259,7 +260,7 @@ abstract class _TaskModel implements TaskModel {
   @override
   String get description;
   @override
-  String get status;
+  bool? get completed;
   @override
   DateTime? get createdAt;
   @override
