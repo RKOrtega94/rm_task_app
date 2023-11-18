@@ -27,7 +27,16 @@ class _TaskFormState extends ConsumerState<TaskForm> {
 
   handleStore() {
     if (_task.id != null) {
-      print("update");
+      ref.read(taskProvider.notifier).updateTask(_task).then((value) => {
+            _isLoading = false,
+            setState(() {}),
+            context.pop(),
+            ScaffoldMessenger.of(context).showSnackBar(
+              const SnackBar(
+                content: Text('Task updated successfully'),
+              ),
+            ),
+          });
     } else {
       ref.read(taskProvider.notifier).add(_task).then((value) => {
             _isLoading = false,

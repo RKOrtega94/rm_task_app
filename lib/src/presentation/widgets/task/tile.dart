@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:rm_task_app/src/data/model/task_model.dart';
+import 'package:rm_task_app/src/presentation/providers/task_provider.dart';
+import 'package:rm_task_app/src/presentation/widgets/shared/show_dialog.dart';
 
 class TaskTileWidget extends ConsumerWidget {
   final TaskModel task;
@@ -14,11 +16,37 @@ class TaskTileWidget extends ConsumerWidget {
       onTap: () => context.push('/task/${task.id}'),
       leading: Checkbox(
         value: task.completed ?? false,
-        onChanged: (value) {},
+        onChanged: (value) => {
+          ref.read(taskProvider.notifier).updateTask(
+                task.copyWith(
+                  completed: value,
+                ),
+              ),
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(value ?? false
+                  ? 'Task completed successfully.'
+                  : 'Set task as pending.'),
+            ),
+          ),
+        },
       ),
       trailing: IconButton(
         icon: const Icon(Icons.delete),
-        onPressed: () {},
+        onPressed: () => appShowDialog(
+          context,
+          title: 'Alert',
+          content: 'Are you sure you want to delete this task?',
+          confirm: () => ref.read(taskProvider.notifier).delete(task.id!).then(
+                (value) => {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Task deleted'),
+                    ),
+                  )
+                },
+              ),
+        ),
       ),
       title: Text(task.title),
       subtitle: Column(

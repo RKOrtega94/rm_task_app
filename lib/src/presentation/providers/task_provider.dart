@@ -6,6 +6,7 @@ import 'package:rm_task_app/src/data/use_case/task/delete.dart';
 import 'package:rm_task_app/src/data/use_case/task/get_all.dart';
 import 'package:rm_task_app/src/data/use_case/task/get_by_id.dart';
 import 'package:rm_task_app/src/data/use_case/task/store.dart';
+import 'package:rm_task_app/src/data/use_case/task/update.dart';
 
 part 'task_provider.g.dart';
 
@@ -48,13 +49,13 @@ class Task extends _$Task {
   }
 
   Future<void> updateTask(TaskModel task) async {
-    final StoreTaskUseCase storeTaskUseCase = StoreTaskUseCase(
+    final UpdateTaskUseCase updateTaskUseCase = UpdateTaskUseCase(
       TaskRepository(
         TaskRemoteDataSource(),
       ),
     );
 
-    final task0 = await storeTaskUseCase.call(task);
+    final task0 = await updateTaskUseCase.call(task);
 
     final tasks = state.value!
         .map((element) => element.id == task0.id ? task0 : element)
