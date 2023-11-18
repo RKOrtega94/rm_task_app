@@ -34,18 +34,24 @@ class DatabaseQuery {
 
   // Update data
   Future<Map?> updateData(
-      String collection, String documentId, Map<String, dynamic> data) async {
+      String collection, String id, Map<String, dynamic> data) async {
+    // get query snapshot
+    QuerySnapshot querySnapshot =
+        await firestore.collection(collection).where('id', isEqualTo: id).get();
+
+    // get document reference
     DocumentReference documentReference =
-        firestore.collection(collection).doc(documentId);
+        firestore.collection(collection).doc(querySnapshot.docs.first.id);
+
+    // update document
     await documentReference.update(data);
-    DocumentSnapshot documentSnapshot = await documentReference.get();
-    Object? document = documentSnapshot.data();
-    return document as Map?;
+
+    // return updated data
+    return data;
   }
 
   // Delete data
   Future<void> deleteData(String collection, String documentId) async {
-    // first get the document by id
     QuerySnapshot querySnapshot = await firestore
         .collection(collection)
         .where('id', isEqualTo: documentId)

@@ -47,6 +47,22 @@ class Task extends _$Task {
     state = AsyncValue.data([...state.value!, task0]);
   }
 
+  Future<void> updateTask(TaskModel task) async {
+    final StoreTaskUseCase storeTaskUseCase = StoreTaskUseCase(
+      TaskRepository(
+        TaskRemoteDataSource(),
+      ),
+    );
+
+    final task0 = await storeTaskUseCase.call(task);
+
+    final tasks = state.value!
+        .map((element) => element.id == task0.id ? task0 : element)
+        .toList();
+
+    state = AsyncValue.data([...tasks]);
+  }
+
   Future<void> delete(String id) async {
     final DeleteTaskUseCase deleteTaskUseCase = DeleteTaskUseCase(
       TaskRepository(

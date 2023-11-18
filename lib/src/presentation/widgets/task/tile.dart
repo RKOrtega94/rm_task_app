@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:rm_task_app/src/data/model/task_model.dart';
 
-class TaskTileWidget extends StatelessWidget {
+class TaskTileWidget extends ConsumerWidget {
   final TaskModel task;
   const TaskTileWidget({super.key, required this.task});
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
     return ListTile(
       onTap: () => context.push('/task/${task.id}'),
       leading: Checkbox(
-        value: false,
+        value: task.completed ?? false,
         onChanged: (value) {},
       ),
       trailing: IconButton(
