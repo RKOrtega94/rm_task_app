@@ -60,4 +60,23 @@ class Task extends _$Task {
 
     state = AsyncValue.data([...tasks]);
   }
+
+  Future<void> filter(bool? query) async {
+    final GetAllTasksUseCase getAllTasksUseCase = GetAllTasksUseCase(
+      TaskRepository(
+        TaskRemoteDataSource(),
+      ),
+    );
+
+    final List<TaskModel> tasks = await getAllTasksUseCase.call();
+
+    if (query == null) {
+      state = AsyncValue.data([...tasks]);
+      return;
+    }
+    final filteredTasks =
+        tasks.where((element) => element.completed == query).toList();
+
+    state = AsyncValue.data([...filteredTasks]);
+  }
 }
